@@ -278,6 +278,7 @@ data:{
 		}
 	}
 ```
+
 > 切换对应的任务显示
 ```html
 <li v-for="task in tasks" :class="{completed:task.completed,editing:isEditing==task.id}" v-if="show(task.completed)">
@@ -289,6 +290,21 @@ show(i){
         return true;
     }else if(this.flag.completed===i){
         return true;
+    }
+}
+```
+
+## 十五 双击编辑任务自动聚焦
+```html
+<input class="edit" v-model="task.title" @keyup.enter="isEditing=-1" @blur="isEditing=-1" v-todo-focus="isEditing"==task.id>
+```
+
+```js
+directives:{
+    'todo-focus':function(el,binding){
+        if(binding.value){
+            el.focus()
+        }
     }
 }
 ```
